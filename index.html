@@ -1,50 +1,42 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FINAX - Tableau de Bord</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FINAX - Tableau de Bord</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <aside class="sidebar">
-        <h1>FINAX</h1>
-        <nav>
-            <ul>
-                <li>📊 Tableau de bord</li>
-                <li>📢 Alertes stratégiques</li>
-                <li>🤖 IA Conseiller Personnel</li>
-            </ul>
-        </nav>
-    </aside>
-    <main class="dashboard">
-        <section class="budget">
-            <div class="card">
-                <h2>Revenus</h2>
-                <p>Revenus : <strong>3.000 €</strong></p>
-                <p>Dépenses : <strong>2.500 €</strong></p>
-                <p>Solde mensuel : <span class="positive">500 €</span></p>
-            </div>
-            <div class="card">
-                <h2>Immobilier</h2>
-                <p>Biens possédés : 1</p>
-                <p>Rendement brut : 5.4%</p>
-            </div>
-            <div class="card">
-                <h2>Financier</h2>
-                <p>Valeur du portefeuille : 25.000 €</p>
-                <p>Simulation à 10 ans : <span class="positive">+45%</span></p>
-            </div>
-            <div class="card">
-                <h2>Profil d’investisseur</h2>
-                <input type="range" min="1" max="5" value="3" />
-            </div>
-            <div class="card">
-                <h2>Alertes stratégiques</h2>
-                <p>🏢 Opportunité à Rennes : <strong>7.3%</strong></p>
-            </div>
-        </section>
-    </main>
-    <script src="script.js"></script>
+  <header>
+    <h1>FINAX</h1>
+    <p>Analyse • Alerte • Action</p>
+  </header>
+  <main>
+    <section class="portfolio">
+      <h2>📊 Mon Portefeuille</h2>
+      <div id="portfolio">Chargement...</div>
+    </section>
+
+    <section class="simulation">
+      <h2>🎮 Simulation d'investissement</h2>
+      <label>Montant (€) :
+        <input type="number" id="amount" placeholder="1000">
+      </label>
+      <label>Durée (années) :
+        <input type="number" id="years" value="5">
+      </label>
+      <button onclick="simulate()">Simuler</button>
+      <div id="sim-result"></div>
+    </section>
+
+    <section class="news">
+      <h2>📰 Actualités Marché</h2>
+      <div id="news-container">
+        <p>Chargement des actualités...</p>
+      </div>
+    </section>
+  </main>
+  <footer><p>&copy; 2025 FINAX</p></footer>
+  <script src="script.js"></script>
 </body>
 </html>
