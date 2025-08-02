@@ -1,65 +1,58 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FINAX Mobile</title>
-    <link rel="manifest" href="manifest.json" />
-    <meta name="theme-color" content="#0d1117" />
-    <style>
-        body {
-            background-color: #0d1117;
-            color: white;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 15px;
-        }
-        h1 {
-            text-align: center;
-            color: #58a6ff;
-        }
-        .card {
-            background-color: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-        .symbol {
-            color: #8b949e;
-        }
-        .price {
-            color: #58a6ff;
-            font-weight: bold;
-        }
-    </style>
-    <script>
-        async function chargerActifs() {
-            const res = await fetch("https://finax-api.onrender.com/api/assets");
-            const data = await res.json();
-            const container = document.getElementById("actifs");
-            container.innerHTML = "";
-            data.forEach(item => {
-                const el = document.createElement("div");
-                el.className = "card";
-                el.innerHTML = `
-                    <div><strong>${item.name}</strong> <span class='symbol'>(${item.symbol})</span></div>
-                    <div class='price'>${item.price} ${item.currency}</div>
-                `;
-                container.appendChild(el);
-            });
-        }
-        window.onload = () => {
-            chargerActifs();
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('sw.js');
-            }
-        };
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FINAX - Suivi des Actifs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #4da6ff;
+    }
+    .asset {
+      background: #1c1c1c;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+  </style>
 </head>
 <body>
-    <h1>📱 FINAX - Suivi des Actifs</h1>
-    <div id="actifs">Chargement en cours...</div>
+  <h1>📊 FINAX - Suivi des Actifs</h1>
+  <p>Chargement en cours...</p>
+  <div id="assets"></div>
+
+  <script>
+    async function fetchAssets() {
+      try {
+        const res = await fetch("https://finax-api.onrender.com/api/assets");
+        const data = await res.json();
+        document.querySelector("p").remove();
+        const container = document.getElementById("assets");
+        data.forEach(asset => {
+          const card = document.createElement("div");
+          card.className = "asset";
+          card.innerHTML = `
+            <strong>${asset.name} (${asset.symbol})</strong><br/>
+            Prix actuel : <strong>${asset.price.toLocaleString()} ${asset.currency}</strong><br/>
+            Tendance : 📈 en hausse (simulation)<br/>
+            Rendement estimé : 4.3% / an (exemple)
+          `;
+          container.appendChild(card);
+        });
+      } catch (error) {
+        document.querySelector("p").textContent = "Erreur de chargement des actifs.";
+      }
+    }
+
+    fetchAssets();
+  </script>
 </body>
 </html>
